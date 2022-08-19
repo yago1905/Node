@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon src\\index.ts",
     "cli": "node cliFileNavigator.mjs",
     "serv": "node FileNavServ.mjs",
     "crud": "node crudchat.mjs",
@@ -23,17 +23,24 @@
   "homepage": "https://github.com/yago1905/Node#readme",
   "dependencies": {
     "ansi": "^0.3.1",
+    "axios": "^0.27.2",
     "colors": "^1.4.0",
     "emitter-component": "^1.1.1",
     "express": "^4.18.1",
+    "fs": "^0.0.1-security",
     "fs-extra": "^10.1.0",
     "inquirer": "^9.1.0",
     "minimist": "^1.2.6",
     "moment": "^2.29.4",
     "moment-precise-range-plugin": "^1.3.0",
-    "nodemon": "^2.0.19"
+    "node-fetch": "^3.2.10",
+    "nodemon": "^2.0.19",
+    "path": "^0.12.7",
+    "translate": "^1.4.1",
+    "tsconfig.json": "^1.0.11"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.7.2",
     "jest": "^28.1.3",

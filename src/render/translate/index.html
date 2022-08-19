@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ПЕРЕВОДЧИК</title>
+  </head>
+  <body>
+    <form action="http://localhost:4000/translate" method="post">
+      <input type="text" placeholder="Введите текст" name="text" />
+      <br />
+      <h2>На какой язык перевести ?</h2>
+      <br />
+      <input type="radio" name="language" value="ru" id="radio_1" />
+      <label for="radio_1">РУССКИЙ</label>
+      <input type="radio" name="language" value="en" id="radio_2" />
+      <label for="radio_2">АНГЛИЙСКИЙ</label>
+      <input type="radio" name="language" value="fa" id="radio_3" />
+      <label for="radio_3">ФАРСИ</label>
+      <input type="radio" name="language" value="hr" id="radio_4" />
+      <label for="radio_4">ХОРВАТСКИЙ</label>
+      <br />
+      <button>ПЕРЕВЕСТИ</button>
+
+      <p>С руского переводит плохо, лучше использоватье английский</p>
+
+      <h3>ВАШ ПЕРЕВОД</h3>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <div id="home"></div>
+    <script>
+      const dataNewsLink = {
+        yandex: 'yandex.ru/news/',
+        rambler: 'news.rambler.ru',
+        tass: 'tass.ru',
+        TRANSLATE: 'localhost:4000/translate',
+        FTP: 'localhost:4000/ftp',
+      };
+
+      const home = document.querySelector('#home');
+      let str = '';
+
+      for (let value in dataNewsLink) {
+        str += `<a href = "http://${dataNewsLink[value]}">${value}</a><br>`;
+      }
+
+      console.log(str);
+
+      home.insertAdjacentHTML('afterbegin', str);
+    </script>
+  </body>
+</html>
