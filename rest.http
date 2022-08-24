@@ -1,0 +1,25 @@
+### read chats
+http://localhost:5000/chats
+
+
+### create chat
+
+POST http://localhost:5000/chats HTTP/1.1
+content-type: application/json
+
+{
+  "name": "asdfdsfdsf"
+}
+
+### delete chat
+
+DELETE http://localhost:5000/chats/6305f35eaa94abbb475e6d39
+
+### put chat
+
+PUT http://localhost:5000/chats/6305f1faaa94abbb475e6d37 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "new-best-name"
+}
