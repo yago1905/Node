@@ -8,7 +8,8 @@ import MessageRouter from './routes/messages';
 //import cowsay from 'cowsay';
 import mongoose from 'mongoose';
 
-const URI = 'mongodb://127.0.0.1/gb';
+//const URI = 'mongodb://127.0.0.1/gb';
+const URI = process.env.MONGODB_URI as string;
 
 mongoose
   .connect(URI)
