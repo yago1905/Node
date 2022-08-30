@@ -1,34 +1,43 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 
 import 'dotenv/config';
 
 import ChatRouter from './routes/chats';
 import MessageRouter from './routes/messages';
-//import cowsay from 'cowsay';
-import mongoose from 'mongoose';
+import AuthRouter from './routes/auth';
 
-//const URI = 'mongodb://127.0.0.1/gb';
+import mongoose from 'mongoose';
+import { errorMiddleware } from './middlewares/error';
+import { verifyToken } from './middlewares/tokenVerify';
+
 const URI = process.env.MONGODB_URI as string;
 
 mongoose
   .connect(URI)
-  .then(() => console.log('MONGOSE connected'))
+  .then(() => console.log('Mongoose connected'))
   .catch((error) => console.log(error));
 
 const app = express();
 
-// Чтобы парсить json  на сервере необходимо поставить body-parsee и обюявить 2 мидлвары, одна для json, другая для форм
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-app.get('/status', (req, res) => res.send('OK'));
+app.get('/status', (_, res) => res.send('OK'));
 
 app.use('/chats', ChatRouter);
 app.use('/messages', MessageRouter);
+app.use('/', AuthRouter);
+
+app.get('/profile', verifyToken, (req, res) => {
+  res.send('Im secured');
+});
+
+app.use(errorMiddleware);
+
+app.all('*', (_, res) => {
+  res.status(404).json({ error: 404 });
+});
 
 app.listen(process.env.PORT || 5000, () =>
-  console.log(`Server has been started to http://localhost:5000`)
+  console.log(`Server has been started to http://localhost:${process.env.PORT}`)
 );
