@@ -1,34 +1,65 @@
-import express, { Request } from 'express';
-import { Chats } from '../models/chats';
+import express from 'express';
+import { Messages } from '../models/messages';
+import { loggerReqResChats } from '../logs/logs.config';
 
-export interface TypedRequestBody<T> extends Request {
-  body: T;
-}
+export const chatsRouter = express.Router();
 
-const router = express.Router();
+chatsRouter.get('/', async (req, res) => {
+  try {
+    const findMsg = await Messages.find();
+    loggerReqResChats.info(`Response ${JSON.stringify(findMsg)}`);
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json(findMsg);
+  } catch (error) {
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(400).json(error);
+  }
+});
 
-router
-  .get('/', async (_, res) => {
-    const chats = await Chats.find();
-    res.json(chats);
-  })
-  .post('/', async (req: TypedRequestBody<{ name: string }>, res, next) => {
-    await Chats.create(req.body, (err: Error, newChat: typeof Chats) => {
-      if (err) {
-        next(err);
-      }
+chatsRouter.get('/:id', async (req, res) => {
+  try {
+    const findMsgId = await Messages.findById(req.params.id);
+    loggerReqResChats.info(`Response ${JSON.stringify(findMsgId)}`);
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json(findMsgId);
+  } catch (error) {
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(400).json(error);
+  }
+});
 
-      res.status(201);
-      res.json(newChat);
-    });
-  })
-  .delete('/:id', async (req, res) => {
-    const deleted = await Chats.findByIdAndDelete(req.params.id);
-    res.json(deleted);
-  })
-  .put('/:id', async (req, res) => {
-    const updateChat = await Chats.findByIdAndUpdate(req.params.id, req.body);
-    res.json(updateChat);
-  });
+chatsRouter.post('/', async (req, res) => {
+  try {
+    const addMsg = await Messages.create(req.body);
+    loggerReqResChats.info(`Response ${JSON.stringify(addMsg)}`);
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json(addMsg);
+  } catch (error) {
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(400);
+  }
+});
 
-export default router;
+chatsRouter.put('/:id', async (req, res) => {
+  try {
+    const updateMsg = await Messages.findByIdAndUpdate(req.params.id, req.body);
+    loggerReqResChats.info(`Response ${JSON.stringify(updateMsg)}`);
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json(updateMsg);
+  } catch (error) {
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(400);
+  }
+});
+
+chatsRouter.delete('/:id', async (req, res) => {
+  try {
+    const deletedMsg = await Messages.findByIdAndDelete(req.params.id);
+    loggerReqResChats.info(`Response ${JSON.stringify(deletedMsg)}`);
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json(deletedMsg);
+  } catch (error) {
+    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(400).json(error);
+  }
+});

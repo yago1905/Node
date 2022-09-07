@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-
 const { Schema, model } = mongoose;
 
 const TokenSchema = new Schema(
@@ -15,7 +14,7 @@ const TokenSchema = new Schema(
     },
     expiresIn: {
       type: Boolean,
-      default: true,
+      required: true,
     },
   },
   {
@@ -23,4 +22,4 @@ const TokenSchema = new Schema(
   }
 );
 
-export const Token = model('Token', TokenSchema, 'Token');
+export const Token = model('TokenSchema', TokenSchema, 'token');

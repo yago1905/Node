@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
-
 const { Schema, model } = mongoose;
 
 const messagesSchema = new Schema({
-  // TODO сделать связь между коллекциями
   chatId: {
     type: String,
     required: true,
@@ -17,6 +15,10 @@ const messagesSchema = new Schema({
     type: String,
     required: true,
   },
+  time: {
+    type: String,
+    required: true,
+  },
 });
 
-export const Messages = model('Messages', messagesSchema, 'Messages');
+export const Messages = model('Message', messagesSchema, 'messages');
